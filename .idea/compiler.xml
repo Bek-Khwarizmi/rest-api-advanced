@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.24/13a394eed5c4f9efb2a6d956e2086f1d81e857d9/lombok-1.18.24.jar" />
+        </processorPath>
+        <module name="rest-api-advanced.persistence.main" />
+        <module name="rest-api-advanced.service.main" />
+        <module name="rest-api-advanced.web.main" />
+        <module name="rest-api-advanced.model.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="gift-certificate-system.model" target="16" />
+      <module name="gift-certificate-system.model.main" target="16" />
+      <module name="gift-certificate-system.model.test" target="16" />
+      <module name="gift-certificate-system.persistence" target="16" />
+      <module name="gift-certificate-system.persistence.main" target="16" />
+      <module name="gift-certificate-system.persistence.test" target="16" />
+      <module name="gift-certificate-system.service" target="16" />
+      <module name="gift-certificate-system.service.main" target="16" />
+      <module name="gift-certificate-system.service.test" target="16" />
+      <module name="gift-certificate-system.web" target="16" />
+      <module name="gift-certificate-system.web.main" target="16" />
+      <module name="gift-certificate-system.web.test" target="16" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
