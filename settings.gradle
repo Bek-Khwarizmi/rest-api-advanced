@@ -1,0 +1,8 @@
+rootProject.name = 'rest-api-advanced'
+include 'persistence'
+include 'model'
+include 'service'
+include 'web'
+
+
+
