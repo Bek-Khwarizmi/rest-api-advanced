@@ -21,6 +21,7 @@ import java.util.Optional;
 
 import static com.epam.esm.entity.EntitiesForServicesTest.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,7 +43,6 @@ public class OrderServiceTest {
         Page<Order> orders = getOrders();
         Page<OrderItemForInfo> expected = getOrderItems();
         when(orderRepository.findAll(Pageable.ofSize(2))).thenReturn(orders);
-
         Page<OrderItemForInfo> actual = orderService.list(Pageable.ofSize(2));
 
         assertEquals(expected, actual);
@@ -59,16 +59,15 @@ public class OrderServiceTest {
 
     @Test
     public void createTest() throws GeneralPersistenceException, IncorrectParamException {
+        when(orderRepository.save(any())).thenReturn(ORDER_1);
+        OrderItemForInfo expected = OrderItemForInfo.fromOrder(ORDER_1);
+
         when(userRepository.findById(1L)).thenReturn(Optional.of(USER_1));
         when(giftCertificateRepository.findById(1L)).thenReturn(Optional.of(GIFT_CERTIFICATE_1));
-        when(orderRepository.save(ORDER_1)).thenReturn(ORDER_1);
-        OrderItemForInfo actual = OrderItemForInfo.fromOrder(ORDER_1);
         OrderDto dto = new OrderDto();
         dto.setUserId(1L);
         dto.setGiftCertificateId(1L);
-        when(orderService.create(dto)).thenReturn(actual);
-        OrderItemForInfo expected = OrderItemForInfo.fromOrder(ORDER_1);
-
+        OrderItemForInfo actual = orderService.create(dto);
         assertEquals(expected, actual);
     }
 }

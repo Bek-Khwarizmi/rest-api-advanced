@@ -39,6 +39,10 @@ public class EntitiesForServicesTest {
             "description 2", new BigDecimal("20.20"), 2, "2018-08-29T06:12:15",
             "2018-08-29T06:12:15", Set.of(TAG_3));
 
+    public static Page<GiftCertificate> getGiftCertificates(){
+        return new PageImpl<>(List.of(GIFT_CERTIFICATE_1, GIFT_CERTIFICATE_2, GIFT_CERTIFICATE_3), Pageable.ofSize(2), 2);
+    }
+
     //Users
     public static final User USER_1 = new User(1L, "Name 1", "Surname 1", "+998901234567", "name1_surname1@gmail.com");
     public static final User USER_2 = new User(2L, "Name 2", "Surname 2", "+998901234568", "name2_surname2@gmail.com");;

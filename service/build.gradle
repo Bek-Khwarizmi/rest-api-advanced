@@ -34,8 +34,10 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
+    forkEvery = 1           // Some tests work fine individually and as a whole within their class,
+}                           // but do not complete successfully when running ./gradlew test command,
+                            // and some suggested that it due to mutability of utility classes thus
+                            // I need to run every test separately, and I think this (forkEvery = 1) does this job
 bootJar {
     enabled = false;
 }

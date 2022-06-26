@@ -14,12 +14,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.epam.esm.entity.EntitiesForServicesTest.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -52,12 +52,13 @@ public class UserServiceTest {
     public void getUsersOrderInfoTest() throws GeneralPersistenceException, IncorrectParamException {
         when(userRepository.findById(1L)).thenReturn(Optional.of(USER_1));
         when(orderRepository.findById(1L)).thenReturn(Optional.of(ORDER_1));
-        OrderItemForInfo actual = OrderItemForInfo.fromOrder(ORDER_1);
-        when(userService.getUsersOrderInfo(USER_1.getId(), ORDER_1.getId())).thenReturn(actual);
+        USER_1.setOrders(List.of(ORDER_1, ORDER_2));
         OrderItemForInfo expected = OrderItemForInfo.fromOrder(ORDER_1);
 
-        assertEquals(actual, expected);
+        OrderItemForInfo actual = userService.getUsersOrderInfo(1L, 1L);
+        assertEquals(expected, actual);
     }
+
 
     /*
     Creating users is used only by me, so I did not write test for this one
