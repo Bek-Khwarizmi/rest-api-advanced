@@ -1,19 +1,27 @@
 package com.epam.esm.exception;
 
 import com.epam.esm.dto.request.GiftCertificateDto;
-import com.epam.esm.service.GiftCertificateService;
+import com.epam.esm.implementation.GiftCertificateServiceImplementation;
+import com.epam.esm.repository.GiftCertificateRepository;
+import com.epam.esm.repository.TagRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class GiftCertificatePersistenceExceptionTest {
 
     @Mock
-    private final GiftCertificateService giftCertificateService;
+    private GiftCertificateRepository giftCertificateRepository;
+    @Mock
+    private TagRepository tagRepository;
 
-    public GiftCertificatePersistenceExceptionTest(GiftCertificateService giftCertificateService) {
-        this.giftCertificateService = giftCertificateService;
-    }
+    @InjectMocks
+    private GiftCertificateServiceImplementation giftCertificateService;
+
 
     @Test
     public void getByIdWithNotGiftCertificateTest() {

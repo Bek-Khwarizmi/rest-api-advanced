@@ -2,11 +2,11 @@ package com.epam.esm.validation;
 
 import com.epam.esm.dto.request.GiftCertificateDto;
 import com.epam.esm.exception.IncorrectParamException;
-import com.epam.esm.service.GiftCertificateService;
+import com.epam.esm.implementation.GiftCertificateServiceImplementation;
 import org.junit.jupiter.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
+import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -14,12 +14,9 @@ import java.math.BigDecimal;
 @ExtendWith(MockitoExtension.class)
 public class GiftCertificateValidationTest {
 
-    @Mock
-    private final GiftCertificateService giftCertificateService;
+    @InjectMocks
+    private GiftCertificateServiceImplementation giftCertificateService;
 
-    public GiftCertificateValidationTest(GiftCertificateService giftCertificateService) {
-        this.giftCertificateService = giftCertificateService;
-    }
 
     @Test
     public void validateGiftCertificateForNullNameTest() {

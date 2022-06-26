@@ -2,22 +2,19 @@ package com.epam.esm.validation;
 
 import com.epam.esm.dto.request.TagDto;
 import com.epam.esm.exception.IncorrectParamException;
-import com.epam.esm.service.TagService;
-import org.junit.Test;
+import com.epam.esm.implementation.TagServiceImplementation;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
+import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class TagValidationTest {
 
-    @Mock
-    private final TagService tagService;
+    @InjectMocks
+    private TagServiceImplementation tagService;
 
-    public TagValidationTest(TagService tagService) {
-        this.tagService = tagService;
-    }
 
     @Test
     public void validateNameForMinLengthTest() {

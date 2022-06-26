@@ -1,35 +1,33 @@
 package com.epam.esm.validation;
 
 import com.epam.esm.dto.request.GiftCertificateDto;
+import com.epam.esm.dto.request.TagDto;
 import com.epam.esm.exception.IncorrectParamException;
-import com.epam.esm.service.GiftCertificateService;
-import com.epam.esm.service.OrderService;
-import com.epam.esm.service.TagService;
-import com.epam.esm.service.UserService;
+import com.epam.esm.implementation.GiftCertificateServiceImplementation;
+import com.epam.esm.implementation.OrderServiceImplementation;
+import com.epam.esm.implementation.TagServiceImplementation;
+import com.epam.esm.implementation.UserServiceImplementation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
+import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Pageable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import java.util.HashSet;
 
 @ExtendWith(MockitoExtension.class)
 public class IdValidationTest {
 
-    @Mock
-    private final TagService tagService;
-    private final GiftCertificateService giftCertificateService;
-    private final UserService userService;
-    private final OrderService orderService;
+    @InjectMocks
+    private TagServiceImplementation tagService;
+    @InjectMocks
+    private GiftCertificateServiceImplementation giftCertificateService;
+    @InjectMocks
+    private UserServiceImplementation userService;
+    @InjectMocks
+    private OrderServiceImplementation orderService;
 
-    public IdValidationTest(
-            TagService tagService, GiftCertificateService giftCertificateService,
-            UserService userService, OrderService orderService) {
-        this.tagService = tagService;
-        this.giftCertificateService = giftCertificateService;
-        this.userService = userService;
-        this.orderService = orderService;
-    }
 
     //Id validations for tag: getById() methods
 
@@ -49,6 +47,7 @@ public class IdValidationTest {
     public void validateIdForGiftCertificateUpdateTest(){
         Assertions.assertThrows(IncorrectParamException.class, () -> {
             GiftCertificateDto dto = new GiftCertificateDto();
+            dto.setTags(new HashSet<TagDto>());
             giftCertificateService.update(-1L, dto);
         });
     }

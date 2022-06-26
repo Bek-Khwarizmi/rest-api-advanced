@@ -1,9 +1,12 @@
 package com.epam.esm.exception;
 
-import com.epam.esm.service.UserService;
-import org.junit.Test;
+import com.epam.esm.implementation.UserServiceImplementation;
+import com.epam.esm.repository.OrderRepository;
+import com.epam.esm.repository.UserRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Pageable;
@@ -12,11 +15,13 @@ import org.springframework.data.domain.Pageable;
 public class UserPersistenceExceptionTest {
 
     @Mock
-    private final UserService userService;
+    private UserRepository userRepository;
+    @Mock
+    private OrderRepository orderRepository;
 
-    public UserPersistenceExceptionTest(UserService userService) {
-        this.userService = userService;
-    }
+    @InjectMocks
+    private UserServiceImplementation userService;
+
 
     @Test
     public void getUserByIdWithNotExistedUserTest(){
