@@ -5,12 +5,12 @@ import com.epam.esm.implementation.OrderServiceImplementation;
 import com.epam.esm.repository.GiftCertificateRepository;
 import com.epam.esm.repository.OrderRepository;
 import com.epam.esm.repository.UserRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderPersistenceExceptionTest {
@@ -31,7 +31,7 @@ public class OrderPersistenceExceptionTest {
         OrderDto dto = new OrderDto();
         dto.setUserId(10L);
         dto.setGiftCertificateId(2L);
-        Assertions.assertThrows(GeneralPersistenceException.class, () -> orderService.create(dto));
+        assertThrows(GeneralPersistenceException.class, () -> orderService.create(dto));
     }
 
     @Test
@@ -39,11 +39,11 @@ public class OrderPersistenceExceptionTest {
         OrderDto dto = new OrderDto();
         dto.setUserId(1L);
         dto.setGiftCertificateId(20L);
-        Assertions.assertThrows(GeneralPersistenceException.class, () -> orderService.create(dto));
+        assertThrows(GeneralPersistenceException.class, () -> orderService.create(dto));
     }
 
     @Test
     public void getByIdWithNotExistedOrderTest(){
-        Assertions.assertThrows(GeneralPersistenceException.class, () -> orderService.getById(6L));
+        assertThrows(GeneralPersistenceException.class, () -> orderService.getById(6L));
     }
 }
