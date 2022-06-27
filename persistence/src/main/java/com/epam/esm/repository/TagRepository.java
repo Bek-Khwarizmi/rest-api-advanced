@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
+
 @Repository
 public class TagRepository{
 
@@ -73,5 +74,52 @@ public class TagRepository{
                 .createQuery(DELETE_BY_ID)
                 .setParameter("id", tag.getId())
                 .executeUpdate();
+    }
+
+    /*
+    Method for widely used tag(s) of a user
+     */
+
+    String query =
+            "SELECT * FROM tag WHERE tag.id IN " +
+                    "( " +
+                    "SELECT tags_id FROM " +
+                    "( " +
+                    "SELECT gift_certificate_id from orders WHERE user_id = " +
+                    "( " +
+                    "SELECT user_id FROM orders GROUP BY user_id ORDER BY SUM(cost) DESC LIMIT 1 " +
+                    ") " +
+                    ") AS tableA " +
+                    "INNER JOIN gift_certificate_tags ON gift_certificate_tags.gift_certificates_id = tableA.gift_certificate_id " +
+                    "GROUP BY tags_id " +
+                    "HAVING COUNT(tags_id) = " +    // Below is the same query as above, I used them twice because
+                    "( " +                          // I need to return list of most used tags, so first I find number of uses
+                    "SELECT MAX(count) FROM " +     // then get tags that has the same amount of uses
+                    "( " +
+                    "SELECT tags_id, COUNT(tags_id) FROM " +
+                    "( " +
+                    "SELECT gift_certificate_id from orders WHERE user_id = " +
+                    "( " +
+                    "SELECT user_id FROM orders GROUP BY user_id ORDER BY SUM(cost) DESC LIMIT 1 " +
+                    ") " +
+                    ") AS tableA " +
+                    "INNER JOIN gift_certificate_tags ON gift_certificate_tags.gift_certificates_id = tableA.gift_certificate_id " +
+                    "GROUP BY tags_id " +
+                    ") AS tableB " +
+                    ") " +
+                    ")";
+
+
+    public Page<Tag> findMostUsedTag(Pageable pageable) {
+        int size = pageable.getPageSize();
+        int page = pageable.getPageNumber();
+
+        List<Tag> tags = entityManager
+                .createNativeQuery(query, Tag.class)
+                .setMaxResults(size)
+                .setFirstResult(page * size)
+                .getResultList();
+
+        return new PageImpl<>(tags, pageable, tags.size());
     }
 }

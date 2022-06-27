@@ -16,4 +16,6 @@ public interface TagService {
     TagItem create(TagDto tagDto) throws GeneralPersistenceException, IncorrectParamException;
 
     TagItem delete(Long id) throws GeneralPersistenceException, IncorrectParamException;
+
+    Page<TagItem> findMostUsedTag(Pageable pageable) throws GeneralPersistenceException;
 }

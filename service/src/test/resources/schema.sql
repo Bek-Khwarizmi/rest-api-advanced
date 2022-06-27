@@ -1,7 +1,7 @@
 -- -----------------------------------------------------
--- Table module3test.tags
+-- Table module3test.tag
 -- -----------------------------------------------------
-create table if not exists tags
+create table if not exists tag
 (
     id   bigint auto_increment,
     name varchar(20) not null,
@@ -9,9 +9,9 @@ create table if not exists tags
     );
 
 -- -----------------------------------------------------
--- Table module3test.gift_certificates
+-- Table module3test.gift_certificate
 -- -----------------------------------------------------
-create table if not exists gift_certificates
+create table if not exists gift_certificate
 (
     id               bigint auto_increment,
     name             varchar(45)  not null,
@@ -26,14 +26,14 @@ create table if not exists gift_certificates
 -- -----------------------------------------------------
 -- Table module3test.gift_certificates_tags
 -- -----------------------------------------------------
-create table if not exists gift_certificates_tags
+create table if not exists gift_certificate_tags
 (
     id                  bigint  auto_increment,
     gift_certificate_id bigint ,
     tag_id              bigint ,
     primary key (id),
-    foreign key (gift_certificate_id) references gift_certificates (id),
-    foreign key (tag_id) references tags (id)
+    foreign key (gift_certificate_id) references gift_certificate (id),
+    foreign key (tag_id) references tag (id)
     );
 
 -- -----------------------------------------------------
@@ -60,6 +60,6 @@ create table if not exists orders
     user_id             bigint ,
     gift_certificate_id bigint ,
     primary key(id),
-    foreign key(gift_certificate_id) references gift_certificates (id),
+    foreign key(gift_certificate_id) references gift_certificate (id),
     foreign key(user_id) references users (id)
     );

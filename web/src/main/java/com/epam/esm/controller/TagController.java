@@ -89,4 +89,18 @@ public class TagController {
         tagLink.link(tagItem, "DELETE");
         return ResponseEntity.ok(tagItem);
     }
+
+    /**
+     * Method for retrieving page of the most widely used tag(s) of a user with the highest cost of all orders
+     * @param pageable
+     * @return page of tags if there is available tag in the database
+     * @throws GeneralPersistenceException if there is no tag in the database
+     */
+    @GetMapping("/most-used")
+    public ResponseEntity find(Pageable pageable) throws GeneralPersistenceException {
+        Page<TagItem> tags = tagService.findMostUsedTag(pageable);
+        tags.forEach(tag -> tagLink.link(tag, "GET"));
+
+        return ResponseEntity.ok(tags);
+    }
 }

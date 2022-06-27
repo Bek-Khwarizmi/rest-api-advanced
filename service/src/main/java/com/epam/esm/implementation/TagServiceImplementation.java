@@ -84,4 +84,18 @@ public class TagServiceImplementation implements TagService {
         tagRepository.delete(tag);
         return TagItem.fromTag(tag);
     }
+
+    /*
+    Method for widely used tag(s) of a user
+     */
+
+    @Override
+    public Page<TagItem> findMostUsedTag(Pageable pageable) throws GeneralPersistenceException {
+        Page<Tag> tags = tagRepository.findMostUsedTag(pageable);
+        if(tags.isEmpty()){
+            throw new GeneralPersistenceException(NO_TAG_ENTITY_FOUND);
+        }
+
+        return tags.map(TagItem::fromTag);
+    }
 }
