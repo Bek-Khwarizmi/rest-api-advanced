@@ -125,6 +125,7 @@ public class GiftCertificateServiceImplementation implements GiftCertificateServ
     @Override
     @Transactional
     public GiftCertificateItem update(Long id, GiftCertificateDto giftCertificateDto) throws GeneralPersistenceException, IncorrectParamException {
+        IdValidation.validateId(id);
         GiftCertificateValidation.validateForUpdate(giftCertificateDto);
 
         Optional<GiftCertificate> optionalGiftCertificate = giftCertificateRepository.findById(id);

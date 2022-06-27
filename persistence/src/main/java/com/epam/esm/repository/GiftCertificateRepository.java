@@ -64,37 +64,18 @@ public class GiftCertificateRepository{
     }
 
     private String sort(String sort){
-        if(sort == null){
-            return "";
+        if(sort == null) return "";
+        String result = " ORDER BY";
+        String[] args = sort.split("-");
+        for (int i=0; i< args.length; i+=2){
+            if(i>0) result+=",";                // This is used if there are more than one sorting parameters
+            if(args[i].equals("date")){         // To use sorting easily I decided using "date" keyword instead of "lastUpdateDate"
+                result+=" gc.lastUpdateDate";   // thus I am converting "date" param to one ("lastUpdateDate") present in Gift Certificates' field
+            }else{
+                result+=" gc."+args[i];
+            }
+            result+=" "+args[i+1].toUpperCase();
         }
-        switch(sort){
-            case "name-asc":
-                return " ORDER BY gc.name";
-            case "name-desc":
-                return " ORDER BY gc.name DESC";
-            case "date-asc":
-                return " ORDER BY gc.lastUpdateDate";
-            case "date-desc":
-                return " ORDER BY gc.lastUpdateDate DESC";
-            case "name-asc-date-asc":
-                return " ORDER BY gc.name ASC, gc.lastUpdateDate ASC";
-            case "name-asc-date-desc":
-                return " ORDER BY gc.name ASC, gc.lastUpdateDate DESC";
-            case "name-desc-date-asc":
-                return " ORDER BY gc.name DESC, gc.lastUpdateDate ASC";
-            case "name-desc-date-desc":
-                return " ORDER BY gc.name DESC, gc.lastUpdateDate DESC";
-            case "date-asc-date-asc":
-                return " ORDER BY gc.lastUpdateDate ASC, gc.name ASC";
-            case "date-asc-name-desc":
-                return " ORDER BY gc.lastUpdateDate ASC, gc.name DESC";
-            case "date-desc-name-asc":
-                return " ORDER BY gc.lastUpdateDate DESC, gc.name ASC";
-            case "date-desc-name-desc":
-                return " ORDER BY gc.lastUpdateDate DESC, gc.name DESC";
-            default:
-                return "";
-        }
+        return result;
     }
-
 }

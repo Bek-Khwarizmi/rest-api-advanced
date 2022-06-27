@@ -1,26 +1,37 @@
 package com.epam.esm.exception;
 
 import com.epam.esm.dto.request.OrderDto;
-import com.epam.esm.service.OrderService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.Test;
+import com.epam.esm.implementation.OrderServiceImplementation;
+import com.epam.esm.repository.GiftCertificateRepository;
+import com.epam.esm.repository.OrderRepository;
+import com.epam.esm.repository.UserRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 public class OrderPersistenceExceptionTest {
 
     @Mock
-    private final OrderService orderService;
+    private OrderRepository orderRepository;
+    @Mock
+    private UserRepository userRepository;
+    @Mock
+    private GiftCertificateRepository giftCertificateRepository;
 
-    public OrderPersistenceExceptionTest(OrderService orderService) {
-        this.orderService = orderService;
-    }
+    @InjectMocks
+    private OrderServiceImplementation orderService;
+
 
     @Test
     public void createOrderWithNotUserIdTest(){
         OrderDto dto = new OrderDto();
         dto.setUserId(10L);
         dto.setGiftCertificateId(2L);
-        Assertions.assertThrows(GeneralPersistenceException.class, () -> orderService.create(dto));
+        assertThrows(GeneralPersistenceException.class, () -> orderService.create(dto));
     }
 
     @Test
@@ -28,11 +39,11 @@ public class OrderPersistenceExceptionTest {
         OrderDto dto = new OrderDto();
         dto.setUserId(1L);
         dto.setGiftCertificateId(20L);
-        Assertions.assertThrows(GeneralPersistenceException.class, () -> orderService.create(dto));
+        assertThrows(GeneralPersistenceException.class, () -> orderService.create(dto));
     }
 
     @Test
     public void getByIdWithNotExistedOrderTest(){
-        Assertions.assertThrows(GeneralPersistenceException.class, () -> orderService.getById(6L));
+        assertThrows(GeneralPersistenceException.class, () -> orderService.getById(6L));
     }
 }
