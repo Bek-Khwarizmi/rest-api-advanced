@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="windows-1251">
+    <file url="file://$PROJECT_DIR$/build.gradle" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/gradlew" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/settings.gradle" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/web/build.gradle" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/web/src/main/java/com/epam/esm/controller/GiftCertificateController.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/web/src/main/java/com/epam/esm/controller/TagController.java" charset="windows-1251" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
